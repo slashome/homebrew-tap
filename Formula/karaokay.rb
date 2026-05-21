@@ -27,7 +27,7 @@ class Karaokay < Formula
   sha256 "10f61c2ddf6bea42db0b67749786e7922e931aab849d3c129014d8f47df9ae8d"
   license "MIT"
 
-  depends_on "python@3.12"
+  depends_on "python@3.13"
 
   # >>> resources: regenerate with `poet --resources python-mpd2 --also syncedlyrics`
   resource "beautifulsoup4" do
