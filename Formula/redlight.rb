@@ -1,8 +1,8 @@
 class Redlight < Formula
   desc "USB multi-device sync daemon (macOS + Linux). No cloud, no phone app"
   homepage "https://github.com/slashome/redlight"
-  url "https://github.com/slashome/redlight/archive/refs/tags/v0.0.1.tar.gz"
-  sha256 "aa5e0f8db094621ba94c56156fd98b8282eb5f065d13a723b53bf9f37bf6f5e2"
+  url "https://github.com/slashome/redlight/archive/refs/tags/v0.0.2.tar.gz"
+  sha256 "6d9255da7c6f1d40a893b933215c23a28cb4131224e6befea75185bd7449b73f"
   license "MIT"
   head "https://github.com/slashome/redlight.git", branch: "main"
 
