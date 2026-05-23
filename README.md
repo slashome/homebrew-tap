@@ -16,6 +16,7 @@ brew install <formula>
 | Formula | Description |
 |---|---|
 | [`karaokay`](Formula/karaokay.rb) | Synchronized lyrics in your terminal, powered by MPD |
+| [`redlight`](Formula/redlight.rb) | USB multi-device sync daemon (macOS + Linux). No cloud, no phone app |
 
 ## Releasing
 
