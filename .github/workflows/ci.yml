@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: Homebrew/actions/setup-homebrew@master
+
+      # Make `slashome/tap` resolve to the *current commit* of this repo
+      # so audit picks up the changes being PR'd, not whatever is live on
+      # github.com/slashome/homebrew-tap.
+      - name: Tap this commit
+        run: |
+          mkdir -p "$(brew --repository)/Library/Taps/slashome"
+          ln -s "${{ github.workspace }}" "$(brew --repository)/Library/Taps/slashome/homebrew-tap"
+
+      - name: brew style
+        run: brew style Formula/*.rb
+
+      - name: brew audit
+        run: |
+          for f in Formula/*.rb; do
+            name="$(basename "$f" .rb)"
+            brew audit --strict --online "slashome/tap/$name"
+          done

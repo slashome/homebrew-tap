@@ -7,7 +7,9 @@ class Redlight < Formula
   head "https://github.com/slashome/redlight.git", branch: "main"
 
   depends_on "rust" => :build
-  depends_on "libmtp"
+  # libmtp is *not* a depends_on yet: v0.0.x shells out to jmtpfs rather
+  # than linking libmtp directly. The dep returns when the libmtp-direct
+  # bridge lands in v0.1.0 (see PLAN.md Phase 2.7).
 
   def install
     system "cargo", "install", *std_cargo_args(path: ".")
@@ -22,18 +24,16 @@ class Redlight < Formula
 
   def caveats
     <<~EOS
-      Phone-bridge prerequisites are not pulled in automatically.
-      Install only what you need:
+      External drives (bridge = "fs") need no prerequisites.
 
-        - MTP (most Android phones in default USB mode):
-            brew install --cask macfuse
-          then build jmtpfs from source (no homebrew formula on macOS):
-            https://github.com/dechamps/jmtpfs
+      Android phones in v0.0.x use ADB only on macOS — MTP via jmtpfs +
+      macFUSE was too fragile to ship; libmtp-direct comes with v0.1.0.
+      To sync an Android phone:
+        1. enable USB debugging on the phone
+        2. brew install --cask android-platform-tools
+        3. declare the device with --bridge adb
 
-        - ADB (Android phones in USB-debugging mode):
-            brew install --cask android-platform-tools
-
-      First-time setup, in this order:
+      First-time setup:
         1. rl init                       # write the config skeleton + host entry
         2. rl device|item|bind add …     # declare what to sync where
         3. brew services start redlight  # auto-start daemon at login
