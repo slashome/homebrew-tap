@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: Homebrew/actions/setup-homebrew@master
+      - uses: Homebrew/actions/setup-homebrew@main
 
       # Make `slashome/tap` resolve to the *current commit* of this repo
       # so audit picks up the changes being PR'd, not whatever is live on
