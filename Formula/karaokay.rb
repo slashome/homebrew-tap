@@ -3,8 +3,8 @@ class Karaokay < Formula
 
   desc "Synchronized lyrics in your terminal, powered by MPD"
   homepage "https://github.com/slashome/karaokay"
-  url "https://github.com/slashome/karaokay/archive/refs/tags/v0.1.0.tar.gz"
-  sha256 "9c34329fdf772adcb4f2699cb31aeef78e75fbb2169faf7097e6e61aea3c4462"
+  url "https://github.com/slashome/karaokay/archive/refs/tags/v0.2.0.tar.gz"
+  sha256 "8622e951f70c63b92f809b5253daadf0b07e34128eb4fa7fc382c0cdcafc7021"
   license "MIT"
 
   depends_on "python@3.13"
