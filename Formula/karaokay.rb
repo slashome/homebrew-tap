@@ -3,13 +3,22 @@ class Karaokay < Formula
 
   desc "Synchronized lyrics in your terminal, powered by MPD"
   homepage "https://github.com/slashome/karaokay"
-  url "https://github.com/slashome/karaokay/archive/refs/tags/v0.2.0.tar.gz"
-  sha256 "8622e951f70c63b92f809b5253daadf0b07e34128eb4fa7fc382c0cdcafc7021"
+  url "https://github.com/slashome/karaokay/archive/refs/tags/v0.3.0.tar.gz"
+  sha256 "0737cb55dfc022c8de63edf9dcd7d5ffd0d13c22dd2e5d66e45eecf3864682b0"
   license "MIT"
 
+  # freetype/jpeg-turbo/libtiff/little-cms2/openjpeg/webp/zlib: image libraries
+  # for Pillow (album cover decoding, incl. JPEG/WebP).
+  depends_on "freetype"
+  depends_on "jpeg-turbo"
+  depends_on "libtiff"
+  depends_on "little-cms2"
+  depends_on "openjpeg"
   depends_on "python@3.13"
+  depends_on "webp"
+  depends_on "zlib"
 
-  # >>> resources: regenerate with `poet --resources python-mpd2 --also syncedlyrics`
+  # >>> resources: regenerate with `poet --resources python-mpd2 --also syncedlyrics --also pillow`
   resource "beautifulsoup4" do
     url "https://files.pythonhosted.org/packages/c3/b0/1c6a16426d389813b48d95e26898aff79abbde42ad353958ad95cc8c9b21/beautifulsoup4-4.14.3.tar.gz"
     sha256 "6292b1c5186d356bba669ef9f7f051757099565ad9ada5dd630bd9de5fa7fb86"
@@ -28,6 +37,14 @@ class Karaokay < Formula
   resource "idna" do
     url "https://files.pythonhosted.org/packages/82/77/7b3966d0b9d1d31a36ddf1746926a11dface89a83409bf1483f0237aa758/idna-3.15.tar.gz"
     sha256 "ca962446ea538f7092a95e057da437618e886f4d349216d2b1e294abfdb65fdc"
+  end
+
+  # Pillow pinned to 11.x: 12.x switched to a meson build backend that fails
+  # inside Homebrew's build sandbox. 11.x (setuptools) builds reliably and
+  # covers everything karaokay needs (open/convert/resize).
+  resource "pillow" do
+    url "https://files.pythonhosted.org/packages/f3/0d/d0d6dea55cd152ce3d6767bb38a8fc10e33796ba4ba210cbab9354b6d238/pillow-11.3.0.tar.gz"
+    sha256 "3828ee7586cd0b2091b6209e5ad53e20d0649bbe87164a459d0676e035e8f523"
   end
 
   resource "python-mpd2" do
@@ -67,10 +84,17 @@ class Karaokay < Formula
   # <<< resources
 
   def install
+    # Pillow's build does not pick up Homebrew's libraries through pkg-config
+    # inside the build sandbox, so point the compiler at them explicitly.
+    %w[zlib jpeg-turbo webp freetype libtiff little-cms2 openjpeg].each do |dep|
+      ENV.prepend_path "CPATH",        Formula[dep].opt_include
+      ENV.prepend_path "LIBRARY_PATH", Formula[dep].opt_lib
+    end
+
     virtualenv_install_with_resources
   end
 
   test do
-    assert_match "Karaoké", shell_output("#{bin}/karaokay --help")
+    assert_match "MPD", shell_output("#{bin}/karaokay --help")
   end
 end
