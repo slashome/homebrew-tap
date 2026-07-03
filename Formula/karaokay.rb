@@ -3,8 +3,8 @@ class Karaokay < Formula
 
   desc "Synchronized lyrics in your terminal, powered by MPD"
   homepage "https://github.com/slashome/karaokay"
-  url "https://github.com/slashome/karaokay/archive/refs/tags/v0.3.1.tar.gz"
-  sha256 "6bb6c4ccf0aa03a7a91c6f1446839fed3bf9b385238254bb5f105f3568b870ce"
+  url "https://github.com/slashome/karaokay/archive/refs/tags/v0.3.2.tar.gz"
+  sha256 "b4abfb11c3a9a8e59e45966c21bc5b79254365574ae68aadb99f0c180bf98b83"
   license "MIT"
 
   # freetype/jpeg-turbo/libtiff/little-cms2/openjpeg/webp/zlib: image libraries
