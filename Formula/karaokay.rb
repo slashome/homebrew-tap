@@ -87,8 +87,8 @@ class Karaokay < Formula
     # Pillow's build does not pick up Homebrew's libraries through pkg-config
     # inside the build sandbox, so point the compiler at them explicitly.
     %w[zlib jpeg-turbo webp freetype libtiff little-cms2 openjpeg].each do |dep|
-      ENV.prepend_path "CPATH",        Formula[dep].opt_include
-      ENV.prepend_path "LIBRARY_PATH", Formula[dep].opt_lib
+      ENV.prepend_path "CPATH",        formula_opt_include(dep)
+      ENV.prepend_path "LIBRARY_PATH", formula_opt_lib(dep)
     end
 
     virtualenv_install_with_resources
