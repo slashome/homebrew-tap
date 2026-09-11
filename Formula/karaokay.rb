@@ -3,8 +3,8 @@ class Karaokay < Formula
 
   desc "Synchronized lyrics in your terminal, powered by MPD"
   homepage "https://github.com/slashome/karaokay"
-  url "https://github.com/slashome/karaokay/archive/refs/tags/v0.5.1.tar.gz"
-  sha256 "18da7dbd6bc4f20d93ebb96a79ed1dc14b99f3aada2a3f40ca09a780dc755846"
+  url "https://github.com/slashome/karaokay/archive/refs/tags/v0.6.0.tar.gz"
+  sha256 "f9f3469e34f442e032c38cac99dca2e5ca0a3420c46ab9305644dd9e53112d54"
   license "MIT"
 
   # freetype/jpeg-turbo/libtiff/little-cms2/openjpeg/webp/zlib: image libraries
@@ -12,6 +12,8 @@ class Karaokay < Formula
   depends_on "freetype"
   depends_on "jpeg-turbo"
   depends_on "libtiff"
+  # libyaml: the C backend PyYAML builds against (config file parsing).
+  depends_on "libyaml"
   depends_on "little-cms2"
   depends_on "openjpeg"
   depends_on "python@3.13"
@@ -50,6 +52,11 @@ class Karaokay < Formula
   resource "python-mpd2" do
     url "https://files.pythonhosted.org/packages/53/be/e77206eb35eb37ccd3506fba237e1431431d04c482707730ce2a6802e95c/python-mpd2-3.1.1.tar.gz"
     sha256 "4baec3584cc43ed9948d5559079fafc2679b06b2ade273e909b3582654b2b3f5"
+  end
+
+  resource "pyyaml" do
+    url "https://files.pythonhosted.org/packages/05/8e/961c0007c59b8dd7729d542c61a4d537767a59645b82a0b521206e1e25c2/pyyaml-6.0.3.tar.gz"
+    sha256 "d76623373421df22fb4cf8817020cbb7ef15c725b9d5e45f17e189bfc384190f"
   end
 
   resource "RapidFuzz" do
