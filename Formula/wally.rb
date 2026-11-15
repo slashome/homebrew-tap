@@ -1,16 +1,23 @@
 class Wally < Formula
   desc "Rotates your wallpapers, screen by screen, from a small daemon"
   homepage "https://github.com/slashome/wally"
-  url "https://github.com/slashome/wally/archive/refs/tags/v0.0.1.tar.gz"
-  sha256 "05d035b109832bea3877a82610e774dfeb6a6fc9b86e82983ec3141a9cead0f6"
+  url "https://github.com/slashome/wally/releases/download/v0.0.1/wally-v0.0.1-universal-apple-darwin.tar.gz"
+  sha256 "26cb4c73fd4fa82f5f83237038c2ca496e585fd45c3bbc8da36419ff4a5eb9b5"
   license "MIT"
-  head "https://github.com/slashome/wally.git", branch: "main"
 
-  depends_on "rust" => :build
+  head do
+    url "https://github.com/slashome/wally.git", branch: "main"
+    depends_on "rust" => :build
+  end
+
   depends_on :macos
 
   def install
-    system "cargo", "install", *std_cargo_args(path: ".")
+    if build.head?
+      system "cargo", "install", *std_cargo_args(path: ".")
+    else
+      bin.install "wally"
+    end
   end
 
   def caveats
