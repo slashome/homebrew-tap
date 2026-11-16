@@ -1,8 +1,8 @@
 class Wally < Formula
   desc "Rotates your wallpapers, screen by screen, from a small daemon"
   homepage "https://github.com/slashome/wally"
-  url "https://github.com/slashome/wally/releases/download/v0.0.1/wally-v0.0.1-universal-apple-darwin.tar.gz"
-  sha256 "26cb4c73fd4fa82f5f83237038c2ca496e585fd45c3bbc8da36419ff4a5eb9b5"
+  url "https://github.com/slashome/wally/releases/download/v0.0.2/wally-v0.0.2-universal-apple-darwin.tar.gz"
+  sha256 "3ed8448c089f3efa35370679826f02e3f089991f3385cd3d4be383aaae4a651b"
   license "MIT"
 
   head do

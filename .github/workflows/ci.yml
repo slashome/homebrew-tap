@@ -30,3 +30,26 @@ jobs:
             name="$(basename "$f" .rb)"
             brew audit --strict --online "slashome/tap/$name"
           done
+
+  casks:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: Homebrew/actions/setup-homebrew@main
+
+      - name: Tap this commit
+        run: |
+          rm -rf "$(brew --repository)/Library/Taps/slashome/homebrew-tap"
+          mkdir -p "$(brew --repository)/Library/Taps/slashome"
+          ln -s "${{ github.workspace }}" "$(brew --repository)/Library/Taps/slashome/homebrew-tap"
+
+      - name: brew style
+        run: brew style Casks/*.rb
+
+      - name: brew audit
+        run: |
+          for f in Casks/*.rb; do
+            name="$(basename "$f" .rb)"
+            brew audit --cask --strict --online "slashome/tap/$name"
+          done

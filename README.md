@@ -18,6 +18,7 @@ brew install <formula>
 | [`karaokay`](Formula/karaokay.rb) | Synchronized lyrics in your terminal, powered by MPD |
 | [`redlight`](Formula/redlight.rb) | USB multi-device sync daemon (macOS + Linux). No cloud, no phone app |
 | [`wally`](Formula/wally.rb) | Rotates your wallpapers, screen by screen, from a small daemon |
+| [`wally-app`](Casks/wally-app.rb) (cask) | Menu bar app for wally: images per screen, next, pause, library, history |
 
 ## Releasing
 
